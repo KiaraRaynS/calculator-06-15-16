@@ -12,7 +12,8 @@ def view_index(request):
 
 
 def login(request):
-    return render(request, 'login.html')
+    form = AuthenticationForm()
+    return render(request, 'login.html', {'form': form})
 
 
 def use_calc(request):
@@ -29,3 +30,7 @@ def create_user(request):
             return render(request, 'createuser.html', {'form': form})
     form = UserCreationForm()
     return render(request, 'createuser.html', {'form': form})
+
+
+def view_profile(request):
+    return render(request, 'profile.html')
