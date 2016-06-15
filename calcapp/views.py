@@ -9,15 +9,6 @@ from calcapp.forms import Mathcalc
 
 
 def view_index(request):
-    return render(request, 'index.html')
-
-
-def login(request):
-    form = AuthenticationForm()
-    return render(request, 'login.html', {'form': form})
-
-
-def use_calc(request):
     result = ''
     num_a = ''
     num_b = ''
@@ -41,7 +32,16 @@ def use_calc(request):
             if math_op == 'div':
                 result = num_a / num_b
                 final_string = "{} / {} = {}".format(num_a, num_b, result)
-    return render(request, 'calculator.html', {'form': Mathcalc(), 'num1': num_a, 'num2': num_b, 'result': result, 'fin': final_string})
+    return render(request, 'index.html', {'form': Mathcalc(), 'num1': num_a, 'num2': num_b, 'result': result, 'fin': final_string})
+
+
+def login(request):
+    form = AuthenticationForm()
+    return render(request, 'login.html', {'form': form})
+
+
+def use_calc(request):
+    return render(request, 'history.html')
 
 
 def create_user(request):

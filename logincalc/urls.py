@@ -23,7 +23,7 @@ urlpatterns = [
     url(r'^$', view_index, name='index'),
     url(r'^login/$', login, name='login'),
     url(r'^logout/$', logout, name='logout'),
-    url(r'^/user/usecalc', use_calc, name="usecalc"),
+    url(r'^/user/usecalc', use_calc, name="pastcalc"),
     url(r'^createuser/$', create_user, name="createuser"),
     url(r'accounts/profile/$', view_profile, name='profile')
 ]
