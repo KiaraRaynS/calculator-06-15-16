@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+</head>
+<body>
+  <a href ="{% url "index" %}">Index</a>
+  <a href ="{% url "login" %}">Login</a>
+  <a href ="{% url "createuser" %}">Create User</a>
+  <a href ="{% url "usecalc" %}">Use Calculator</a>
+  {% block content %}
+  {% endblock %}
+</body>
