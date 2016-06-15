@@ -32,6 +32,10 @@ def view_index(request):
             if math_op == 'div':
                 result = num_a / num_b
                 final_string = "{} / {} = {}".format(num_a, num_b, result)
+        # if logged in
+        # user= User.objects.get(id=signedinid)
+        # Calculation.objects.create(num1=num_a, num=num_b,
+        # mathop=math_op, result=result, finalstring=final_string)
     return render(request, 'index.html', {'form': Mathcalc(), 'num1': num_a, 'num2': num_b, 'result': result, 'fin': final_string})
 
 
@@ -40,7 +44,7 @@ def login(request):
     return render(request, 'login.html', {'form': form})
 
 
-def use_calc(request):
+def view_hist(request):
     return render(request, 'history.html')
 
 
