@@ -10,6 +10,7 @@ from calcapp.models import Calculation
 
 
 def view_index(request):
+    # Calculator function
     result = ''
     num_a = ''
     num_b = ''
@@ -37,10 +38,9 @@ def view_index(request):
                 math_opr = '/'
                 result = num_a / num_b
                 final_string = "{} / {} = {}".format(num_a, num_b, result)
-        # if logged in
-        user = request.user
-        # User.objects.get(id=signedinid)
-        Calculation.objects.create(user=user, num1=num_a, num2=num_b, mathop=math_opr, result=result, finalstring=final_string)
+        if request.user.is_authenticated():
+            user = request.user
+            Calculation.objects.create(user=user, num1=num_a, num2=num_b, mathop=math_opr, result=result, finalstring=final_string)
         # mathop=math_op, result=result, finalstring=final_string)
     return render(request, 'index.html', {'form': Mathcalc(), 'num1': num_a, 'num2': num_b, 'result': result, 'fin': final_string})
 
