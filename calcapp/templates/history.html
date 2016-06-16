@@ -2,6 +2,9 @@
 
 {% block content %}
 <p>Past Calculations will be put here </p>
+  {% for calc in past_calcs %}
+  <p>{{ calc.finalstring }}</p>
+  {% endfor %}
   <!-- for item in calculations
     print item -->
 {% endblock %}

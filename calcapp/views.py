@@ -4,6 +4,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from calcapp.forms import Mathcalc
+from calcapp.models import Calculation
 
 # Create your views here.
 
@@ -21,20 +22,25 @@ def view_index(request):
             num_b = form.cleaned_data['num_b']
             math_op = form.cleaned_data['math_op']
             if math_op == 'add':
+                math_opr = '+'
                 result = num_a + num_b
                 final_string = "{} + {} = {}".format(num_a, num_b, result)
             if math_op == 'sub':
+                math_opr = '-'
                 result = num_a - num_b
                 final_string = "{} - {} = {}".format(num_a, num_b, result)
             if math_op == 'mult':
+                math_opr = '*'
                 result = num_a * num_b
                 final_string = "{} * {} = {}".format(num_a, num_b, result)
             if math_op == 'div':
+                math_opr = '/'
                 result = num_a / num_b
                 final_string = "{} / {} = {}".format(num_a, num_b, result)
         # if logged in
-        # user= User.objects.get(id=signedinid)
-        # Calculation.objects.create(num1=num_a, num=num_b,
+        user = request.user
+        # User.objects.get(id=signedinid)
+        Calculation.objects.create(user=user, num1=num_a, num2=num_b, mathop=math_opr, result=result, finalstring=final_string)
         # mathop=math_op, result=result, finalstring=final_string)
     return render(request, 'index.html', {'form': Mathcalc(), 'num1': num_a, 'num2': num_b, 'result': result, 'fin': final_string})
 
@@ -45,7 +51,11 @@ def login(request):
 
 
 def view_hist(request):
-    return render(request, 'history.html')
+    current_id = request.user
+    context = {
+            'past_calcs': Calculation.objects.filter(user=current_id)
+            }
+    return render(request, 'history.html', context)
 
 
 def create_user(request):
