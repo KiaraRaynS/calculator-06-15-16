@@ -2,9 +2,13 @@
 
 {% block content%}
   <form action='' method="post">
-    {{ form }}
+    <ul>
+      {{ form.as_p }}
+    </ul>
     <input type="submit">
-    <p>Result = {{ fin }}</p>
+    <div class="well">
+      <p>Result = {{ fin }}</p>
+    </div>
     {% csrf_token %}
   </form>
 {% endblock %}

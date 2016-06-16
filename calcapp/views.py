@@ -11,10 +11,10 @@ from calcapp.models import Calculation
 
 def view_index(request):
     # Calculator function
-    result = ''
-    num_a = ''
-    num_b = ''
-    math_op = ''
+    result = '0'
+    num_a = 0
+    num_b = 0
+    math_opr = '+'
     final_string = ''
     if request.POST:
         form = Mathcalc(request.POST)
@@ -39,8 +39,8 @@ def view_index(request):
                 result = num_a / num_b
                 final_string = "{} / {} = {}".format(num_a, num_b, result)
         if request.user.is_authenticated():
-            user = request.user
-            Calculation.objects.create(user=user, num1=num_a, num2=num_b, mathop=math_opr, result=result, finalstring=final_string)
+            user_id = request.user
+            Calculation.objects.create(user=user_id, num1=num_a, num2=num_b, mathop=math_opr, result=result, finalstring=final_string)
         # mathop=math_op, result=result, finalstring=final_string)
     return render(request, 'index.html', {'form': Mathcalc(), 'num1': num_a, 'num2': num_b, 'result': result, 'fin': final_string})
 
@@ -50,11 +50,12 @@ def login(request):
     return render(request, 'login.html', {'form': form})
 
 
-def view_hist(request):
+@login_required
+def past_calcs(request):
     current_id = request.user
     context = {
-            'past_calcs': Calculation.objects.filter(user=current_id)
-            }
+        'past_calcs': Calculation.objects.filter(user=current_id),
+        }
     return render(request, 'history.html', context)
 
 

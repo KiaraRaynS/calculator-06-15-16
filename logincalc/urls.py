@@ -15,15 +15,16 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import login, logout
-from calcapp.views import view_index, view_hist, create_user, view_profile
+from calcapp.views import view_index, create_user, view_profile, past_calcs
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', view_index, name='index'),
     url(r'^login/$', login, name='login'),
     url(r'^logout/$', logout, name='logout'),
-    url(r'^user/usecalc', view_hist, name="pastcalc"),
+    url(r'^user/usecalc', past_calcs, name="pastcalculations"),
     url(r'^createuser/$', create_user, name="createuser"),
     url(r'accounts/profile/$', view_profile, name='profile')
 ]

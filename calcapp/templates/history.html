@@ -1,9 +1,12 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<p>Past Calculations will be put here </p>
+  <h1 class="pagetitle">Past Calculations</h1>
+  <br>
   {% for calc in past_calcs %}
-  <p>{{ calc.finalstring }}</p>
+  <ul>
+    <li><p>{{ calc.finalstring }}</p></li>
+  </ul>
   {% endfor %}
   <!-- for item in calculations
     print item -->
